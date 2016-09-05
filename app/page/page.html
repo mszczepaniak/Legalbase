@@ -1,0 +1,143 @@
+<div>
+    <h2 class="test">
+        <p>Page: {{page.currentPage.title}}</p>
+        <p>Id: {{page.pageId}}</p>
+    </h2> 
+
+    <md-input-container>
+        <label>Page title</label>
+        <input ng-model="page.currentPage.title">
+    </md-input-container>
+
+    <div 
+        layout="row" 
+        layout-align="start center">
+
+        <md-fab-speed-dial 
+            md-open="page.isOpen" 
+            md-direction="right" 
+            class="page-dial md-scale md-hover-full" 
+            ng-mouseenter="page.isOpen=true" 
+            ng-mouseleave="page.isOpen=false">
+
+            <md-fab-trigger>
+                <md-button class="md-warn">
+                    Add element:
+                </md-button>
+            </md-fab-trigger>
+            
+            <md-fab-actions>
+                <md-button 
+                    ng-repeat="type in page.types"
+                    class="md-raised md-warn"
+                    ng-click="page.addElement(page.pageId, type)">
+                    {{type}}
+                    <md-tooltip md-direction="bottom">
+                        Add {{type}} element to the page
+                    </md-tooltip>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+
+    <md-list flex>
+        <h2 class="md-title">Added Elements: </h2>
+        <md-list-item 
+            class="md-2-line" 
+            ng-repeat="element in page.appState[page.pageId-1].elements track by $index" 
+            layout-padding>
+
+            <div 
+                class="md-list-item-text"
+                layout="column">
+
+                <div 
+                    ng-switch="element.type"
+                    layout="row" 
+                    layout-align="start start">
+                    <md-input-container>
+                        <label>title</label>
+                        <input 
+                            type="text"  
+                            ng-model="element.title">
+                    </md-input-container>
+
+                    <div ng-switch-when="input">
+                        <md-input-container>
+                            <label>placeholder</label>
+                            <input 
+                                type="text" 
+                                ng-model="element.placeholder"/>
+                        </md-input-container>
+                    </div>
+
+                    <div ng-switch-when="text area">
+                        <md-input-container>
+                            <label>placeholder</label>
+                            <textarea 
+                                type="text" 
+                                ng-model="element.placeholder">
+                            </textarea>
+                        </md-input-container>
+                    </div>
+
+                    <div ng-switch-when="radio">
+                        <div 
+                            layout="row" 
+                            layout-align="start start">
+                            <md-input-container>
+                                <label>value</label>
+                                <input 
+                                    type="text" 
+                                    ng-model="page.value">
+                            </md-input-container>
+                            <md-button 
+                                class="md-primary md-raised" 
+                                ng-disabled="!page.value" 
+                                ng-click="page.addValueToRadioElem(element, page.value)">
+                                    Add
+                            </md-button>
+                        </div>
+                        <md-radio-group ng-model="element.$radio">
+                            Values:
+                            <div 
+                                ng-repeat="value in element.values" 
+                                layout="row" 
+                                layout-align="start center">
+                                <md-radio-button  
+                                    value="{{value}}" 
+                                    class="md-primary">
+                                        {{value}}
+                                </md-radio-button>
+                                <md-button 
+                                    class="md-warn md-raised" 
+                                    ng-click="page.removeValueFromRadioElem(element, page.value)">
+                                        Remove
+                                </md-button>
+                            </div>
+                        </md-radio-group>
+                    </div>
+
+                    <div ng-switch-when="file">
+                        <md-input-container>
+                            <input type="file" name="file" disabled="true"/>
+                        </md-input-container>
+                    </div>
+
+                    <md-button 
+                        class="md-warn md-raised" 
+                        ng-click="page.removeElement(page.pageId, element)">
+                            Remove
+                    </md-button>
+                </div>
+            </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+    </md-list>
+
+    <md-button 
+        class="md-raised md-primary" 
+        ng-click="page.savePage()">
+            Save page
+    </md-button>
+</div>

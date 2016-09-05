@@ -1,0 +1,16 @@
+npm-debug.log
+engine/
+node_modules/
+platforms/
+plugins/
+build/
+resources/
+config.xml
+coverage
+# Logs
+logs
+*.log
+# Runtime data
+pids
+*.pid
+*.seed

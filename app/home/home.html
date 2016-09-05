@@ -1,0 +1,45 @@
+<h2>Your Pages:</h2>
+
+<md-card ng-repeat="page in home.appState">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{page.title}}</span>
+            <span class="md-subhead">Elements: {{page.elements}}</span>
+        </md-card-title-text>
+        <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+        </md-card-title-media>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button 
+            class="md-raised md-primary"
+            ng-click="home.editPage(page.id)">
+                Edit
+        </md-button>
+        
+        <md-button 
+            class="md-raised md-warn" 
+            ng-click="home.removePage(page)">
+                Remove
+        </md-button>
+    </md-card-actions>
+</md-card>
+
+<md-content flex layout-padding>
+    <div 
+        layout="row"       
+        layout-align="space-between center">
+        <md-button
+            class="md-raised md-primary" 
+            ng-click="home.addPage()">
+                Add new Page
+        </md-button>
+
+        <md-button
+            class="md-raised md-primary" 
+            ng-click="home.saveAsYaml()">
+                Save as YAML
+        </md-button>
+
+    </div>
+</md-content>

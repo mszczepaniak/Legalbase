@@ -1,0 +1,17 @@
+md-fab-speed-dial {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    md-fab-trigger {
+        button {
+            font-size: 25px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
+    md-fab-actions {
+        button {
+            font-size: 20px !important;
+        }
+    }
+}
